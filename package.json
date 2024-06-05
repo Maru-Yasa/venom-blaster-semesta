@@ -1,0 +1,20 @@
+{
+  "name": "wa-bot",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "make:session": "node index.js session",
+    "delete:session": "node index.js delete-session",
+    "send:message-blast": "node index.js send-message-blast",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "path": "^0.12.7",
+    "venom-bot": "^5.1.0"
+  }
+}
