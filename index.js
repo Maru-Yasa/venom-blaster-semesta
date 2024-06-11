@@ -1,5 +1,5 @@
 import fs from "fs";
-import { delay, initClient, removeDirectory, sendText } from "./wa.js";
+import { delay, initClient, removeDirectory, sendText, sendImageWithText } from "./wa.js";
 
 /**
  * Make session command
@@ -50,6 +50,10 @@ const deleteSessionCommand = async (sessionId) => {
   }
 };
 
+function generateRandomInteger(min, max) {
+  return Math.floor(min + Math.random()*(max - min + 1))
+}
+
 /**
  * Send message blast command
  *
@@ -81,11 +85,18 @@ const sendMessageBlastCommand = async (sessionId) => {
   let failed = 0;
 
   for (let i = 0; i < blastNumbers.length; i++) {
-    const number = blastNumbers[i];
+    const number = blastNumbers[i]["nomor"];
+    const nama_sekolah = blastNumbers[i]["nama_sekolah"];
+    let dynamicBlast = blast.replaceAll("{nama_sekolah}", nama_sekolah);
     try {
       const validNumber = `${number}@c.us`;
 
-      await sendText(client, validNumber, blast);
+      await sendImageWithText(
+        client,
+        validNumber,
+        "./image.jpeg",
+        dynamicBlast
+      )
       console.info(`Message successfully sent to: ${validNumber}`);
       success++;
     } catch (error) {
@@ -93,12 +104,33 @@ const sendMessageBlastCommand = async (sessionId) => {
       failed++;
     }
 
-    await delay(2000);
+    await delay(generateRandomInteger(10000, 20000));
   }
 
   console.info(`Success: ${success}, Failed: ${failed}`);
   process.exit(0);
 };
+
+
+const sendMessage = async (sessionId, number, blast) => {
+  if (!sessionId) {
+    console.error("Invalid session id!");
+    process.exit(1);
+  }
+  const client = await initClient(sessionId);
+
+  try {
+    const validNumber = `${number}@c.us`;
+
+    await sendText(client, validNumber, blast);
+    console.info(`Message successfully sent to: ${validNumber}`);
+  } catch (error) {
+    console.error("Error sending message to: ", number);
+  }
+
+  process.exit(0);
+};
+
 
 /**
  * Execute command
@@ -115,6 +147,10 @@ const sendMessageBlastCommand = async (sessionId) => {
       break;
     case "send-message-blast":
       sendMessageBlastCommand(input);
+      break;
+    case "send-message":
+      let inputArray = input.split('_');
+      sendMessage(inputArray[0], inputArray[1], inputArray[2]);
       break;
     default:
       console.info("Invalid command!");

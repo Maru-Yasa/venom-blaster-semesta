@@ -1,4 +1,5 @@
 blast.json
+blast*.json
 blast.txt
 tokens/
 node_modules/

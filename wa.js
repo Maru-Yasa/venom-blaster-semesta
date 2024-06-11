@@ -27,11 +27,24 @@ export const initClient = async (sessionName) => {
 export const sendText = async (client, to, message) => {
   // Send text message
   try {
-    return await client.sendText(to, message);
+    return await client.sendTfext(to, message);
   } catch (error) {
     console.log("Error sending message: ", error);
   }
 };
+
+export const sendImageWithText = async (client, to, image, message) => {
+  try {
+    return await client.sendImage(
+      to,
+      image,
+      'image-name',
+      message
+    )
+  } catch (error) {
+    console.log("Error sending message: ", error);
+  }
+}
 
 /**
  * Remove directory
