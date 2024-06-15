@@ -60,7 +60,7 @@ function generateRandomInteger(min, max) {
  * @param {string} sessionId
  * @returns {Promise<void>}
  */
-const sendMessageBlastCommand = async (sessionId) => {
+const sendMessageBlastCommand = async (sessionId, file) => {
   if (!sessionId) {
     console.error("Invalid session id!");
     process.exit(1);
@@ -71,13 +71,13 @@ const sendMessageBlastCommand = async (sessionId) => {
     process.exit(1);
   }
 
-  if (!fs.existsSync("blast.json")) {
+  if (!fs.existsSync(file)) {
     console.error("File blast.json is not found!");
     process.exit(1);
   }
 
   const blast = fs.readFileSync("blast.txt", "utf8");
-  const blastNumbers = JSON.parse(fs.readFileSync("blast.json", "utf8"));
+  const blastNumbers = JSON.parse(fs.readFileSync(file, "utf8"));
 
   const client = await initClient(sessionId);
 
@@ -136,7 +136,7 @@ const sendMessage = async (sessionId, number, blast) => {
  * Execute command
  */
 (() => {
-  const [state, input] = process.argv.slice(2);
+  const [state, input, file] = process.argv.slice(2);
 
   switch (state) {
     case "session":
@@ -146,7 +146,7 @@ const sendMessage = async (sessionId, number, blast) => {
       deleteSessionCommand(input);
       break;
     case "send-message-blast":
-      sendMessageBlastCommand(input);
+      sendMessageBlastCommand(input, file);
       break;
     case "send-message":
       let inputArray = input.split('_');
