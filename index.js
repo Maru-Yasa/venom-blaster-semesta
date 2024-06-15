@@ -85,9 +85,9 @@ const sendMessageBlastCommand = async (sessionId) => {
   let failed = 0;
 
   for (let i = 0; i < blastNumbers.length; i++) {
-    const number = blastNumbers[i]["nomor"];
-    const nama_sekolah = blastNumbers[i]["nama_sekolah"];
-    let dynamicBlast = blast.replaceAll("{nama_sekolah}", nama_sekolah);
+    const number = blastNumbers[i]["nomor_hp"];
+    const nama_sekolah = blastNumbers[i]["nama_peserta"];
+    let dynamicBlast = blast.replaceAll("{nama_peserta}", nama_sekolah);
     try {
       const validNumber = `${number}@c.us`;
 
@@ -104,7 +104,7 @@ const sendMessageBlastCommand = async (sessionId) => {
       failed++;
     }
 
-    await delay(generateRandomInteger(10000, 20000));
+    await delay(generateRandomInteger(10000, 15000));
   }
 
   console.info(`Success: ${success}, Failed: ${failed}`);
