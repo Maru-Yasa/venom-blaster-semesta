@@ -85,7 +85,7 @@ const sendMessageBlastCommand = async (sessionId, file) => {
   let failed = 0;
 
   for (let i = 0; i < blastNumbers.length; i++) {
-    const number = blastNumbers[i]["nomor_hp"];
+    const number = blastNumbers[i]["nomer_hp"];
     const nama_sekolah = blastNumbers[i]["nama_peserta"];
     let dynamicBlast = blast.replaceAll("{nama_peserta}", nama_sekolah);
     try {
