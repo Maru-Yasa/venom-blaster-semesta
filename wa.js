@@ -10,6 +10,8 @@ import venom, { Whatsapp } from "venom-bot";
  */
 export const initClient = async (sessionName) => {
   const client = await venom.create({
+    headless: true,
+    multiDevice: true,
     session: sessionName,
   });
 

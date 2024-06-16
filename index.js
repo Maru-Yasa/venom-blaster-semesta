@@ -94,7 +94,7 @@ const sendMessageBlastCommand = async (sessionId, file) => {
       await sendImageWithText(
         client,
         validNumber,
-        "./image.jpeg",
+        "./image.png",
         dynamicBlast
       )
       console.info(`Message successfully sent to: ${validNumber}`);
