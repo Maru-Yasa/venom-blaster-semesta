@@ -85,16 +85,16 @@ const sendMessageBlastCommand = async (sessionId, file) => {
   let failed = 0;
 
   for (let i = 0; i < blastNumbers.length; i++) {
-    const number = blastNumbers[i]["nomer_hp"];
-    const nama_sekolah = blastNumbers[i]["nama_peserta"];
-    let dynamicBlast = blast.replaceAll("{nama_peserta}", nama_sekolah);
+    const number = blastNumbers[i]["nomer"];
+    const nama_sekolah = blastNumbers[i]["nama"];
+    let dynamicBlast = blast.replaceAll("{nama}", nama_sekolah);
     try {
-      const validNumber = `${number}@c.us`;
+      const validNumber = `62${number}@c.us`;
 
       await sendImageWithText(
         client,
         validNumber,
-        "./image.png",
+        "./image.jpeg",
         dynamicBlast
       )
       console.info(`Message successfully sent to: ${validNumber}`);
